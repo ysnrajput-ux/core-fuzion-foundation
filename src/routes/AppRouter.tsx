@@ -35,12 +35,22 @@ const TestRunnerPage = lazy(() => import("@/pages/tests/TestRunnerPage").then((m
 const FeesPage = lazy(() => import("@/pages/fees/FeesPage").then((m) => ({ default: m.FeesPage })));
 const NotificationsPage = lazy(() => import("@/pages/notifications/NotificationsPage").then((m) => ({ default: m.NotificationsPage })));
 const ProfilePage = lazy(() => import("@/pages/profile/ProfilePage").then((m) => ({ default: m.ProfilePage })));
+const HomeworkPage = lazy(() => import("@/pages/homework/HomeworkPage").then((m) => ({ default: m.HomeworkPage })));
+const ResultsPage = lazy(() => import("@/pages/results/ResultsPage").then((m) => ({ default: m.ResultsPage })));
+const MessagesPage = lazy(() => import("@/pages/messages/MessagesPage").then((m) => ({ default: m.MessagesPage })));
+const ReportsPage = lazy(() => import("@/pages/reports/ReportsPage").then((m) => ({ default: m.ReportsPage })));
+const LiveClassesPage = lazy(() => import("@/pages/live/LiveClassesPage").then((m) => ({ default: m.LiveClassesPage })));
+const StudyMaterialPage = lazy(() => import("@/pages/materials/StudyMaterialPage").then((m) => ({ default: m.StudyMaterialPage })));
 const PlaceholderPage = lazy(() => import("@/pages/PlaceholderPage").then((m) => ({ default: m.PlaceholderPage })));
 
 // Admin pages — lazy loaded
 const AdminDashboardPage = lazy(() => import("@/pages/admin/AdminDashboardPage").then((m) => ({ default: m.AdminDashboardPage })));
 const AdminUsersPage = lazy(() => import("@/pages/admin/AdminUsersPage").then((m) => ({ default: m.AdminUsersPage })));
 const AdminSettingsPage = lazy(() => import("@/pages/admin/AdminSettingsPage").then((m) => ({ default: m.AdminSettingsPage })));
+const AdminStudentsPage = lazy(() => import("@/pages/admin/AdminStudentsPage").then((m) => ({ default: m.AdminStudentsPage })));
+const AdminRevenuePage = lazy(() => import("@/pages/admin/AdminRevenuePage").then((m) => ({ default: m.AdminRevenuePage })));
+const AdminCoursesPage = lazy(() => import("@/pages/admin/AdminCoursesPage").then((m) => ({ default: m.AdminCoursesPage })));
+const AdminAnalyticsPage = lazy(() => import("@/pages/admin/AdminAnalyticsPage").then((m) => ({ default: m.AdminAnalyticsPage })));
 
 // Errors
 import { NotFoundPage } from "@/pages/errors/NotFoundPage";
@@ -87,12 +97,15 @@ export function AppRouter() {
           <Route path="notifications" element={withSuspense(<NotificationsPage />)} />
           <Route path="profile" element={withSuspense(<ProfilePage />)} />
           <Route path="bookmarks" element={withSuspense(<PlaceholderPage title="Bookmarks" description="Your saved study materials and videos." />)} />
-          <Route path="homework" element={withSuspense(<PlaceholderPage title="Homework" description="View and submit your homework assignments." />)} />
+          <Route path="homework" element={withSuspense(<HomeworkPage />)} />
           <Route path="assignments" element={withSuspense(<PlaceholderPage title="Assignments" description="Track your assignment deadlines." />)} />
           <Route path="students" element={withSuspense(<PlaceholderPage title="Student Management" description="Manage your students and their progress." />)} />
-          <Route path="reports" element={withSuspense(<PlaceholderPage title="Reports" description="Generate and view student reports." />)} />
+          <Route path="reports" element={withSuspense(<ReportsPage />)} />
           <Route path="analytics" element={withSuspense(<PlaceholderPage title="Analytics" description="Detailed performance analytics." />)} />
-          <Route path="messages" element={withSuspense(<PlaceholderPage title="Messages" description="Communicate with teachers and parents." />)} />
+          <Route path="messages" element={withSuspense(<MessagesPage />)} />
+          <Route path="results" element={withSuspense(<ResultsPage />)} />
+          <Route path="materials" element={withSuspense(<StudyMaterialPage />)} />
+          <Route path="live" element={withSuspense(<LiveClassesPage />)} />
         </Route>
       </Route>
 
@@ -103,15 +116,15 @@ export function AppRouter() {
           <Route path="dashboard" element={withSuspense(<AdminDashboardPage />)} />
           <Route path="users" element={withSuspense(<AdminUsersPage />)} />
           <Route path="settings" element={withSuspense(<AdminSettingsPage />)} />
-          <Route path="students" element={withSuspense(<PlaceholderPage title="Student Management" description="Manage all students across the institute." />)} />
+          <Route path="students" element={withSuspense(<AdminStudentsPage />)} />
           <Route path="teachers" element={withSuspense(<PlaceholderPage title="Teacher Management" description="Manage all teachers and their assignments." />)} />
           <Route path="parents" element={withSuspense(<PlaceholderPage title="Parent Management" description="Manage parent accounts and access." />)} />
           <Route path="batches" element={withSuspense(<PlaceholderPage title="Batch Management" description="Create and manage student batches." />)} />
-          <Route path="courses" element={withSuspense(<PlaceholderPage title="Course Management" description="Create and manage institute courses." />)} />
-          <Route path="revenue" element={withSuspense(<PlaceholderPage title="Revenue Dashboard" description="Track institute revenue and collections." />)} />
+          <Route path="courses" element={withSuspense(<AdminCoursesPage />)} />
+          <Route path="revenue" element={withSuspense(<AdminRevenuePage />)} />
           <Route path="fees" element={withSuspense(<PlaceholderPage title="Fee Collection" description="Manage fee plans and collections." />)} />
           <Route path="notifications" element={withSuspense(<PlaceholderPage title="Notifications" description="Send institute-wide notifications." />)} />
-          <Route path="analytics" element={withSuspense(<PlaceholderPage title="Institute Analytics" description="Comprehensive analytics dashboard." />)} />
+          <Route path="analytics" element={withSuspense(<AdminAnalyticsPage />)} />
           <Route path="reports" element={withSuspense(<PlaceholderPage title="Export Reports" description="Generate and export institute reports." />)} />
         </Route>
       </Route>

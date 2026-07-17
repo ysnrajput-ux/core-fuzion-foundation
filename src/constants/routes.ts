@@ -36,6 +36,9 @@ export const ROUTES = {
     reports: "/app/reports",
     analytics: "/app/analytics",
     messages: "/app/messages",
+    results: "/app/results",
+    materials: "/app/materials",
+    live: "/app/live",
   },
   admin: {
     root: "/admin",
