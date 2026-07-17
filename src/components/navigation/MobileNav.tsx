@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, GraduationCap, LayoutDashboard, Settings, BookOpen, CalendarCheck, ClipboardList, CreditCard, Bell, Bookmark, Users, ChartBar as BarChart3, MessageSquare, User, Video, FileText, Trophy, Download } from "lucide-react";
+import { X, GraduationCap, LayoutDashboard, Settings, BookOpen, CalendarCheck, ClipboardList, CreditCard, Bell, Bookmark, Users, ChartBar as BarChart3, MessageSquare, User } from "lucide-react";
 
 import { useSidebar } from "@/context/SidebarContext";
 import { useAuth } from "@/context/AuthContext";
@@ -21,13 +21,8 @@ const NAV_BY_ROLE: Record<UserRole, NavItem[]> = {
     { label: "Courses", to: ROUTES.app.courses, icon: BookOpen },
     { label: "Attendance", to: ROUTES.app.attendance, icon: CalendarCheck },
     { label: "Tests", to: ROUTES.app.tests, icon: ClipboardList },
-    { label: "Results", to: ROUTES.app.results, icon: Trophy },
-    { label: "Homework", to: ROUTES.app.homework, icon: ClipboardList },
-    { label: "Study Material", to: ROUTES.app.materials, icon: FileText },
-    { label: "Live Classes", to: ROUTES.app.live, icon: Video },
     { label: "Fees", to: ROUTES.app.fees, icon: CreditCard },
-    { label: "Messages", to: ROUTES.app.messages, icon: MessageSquare },
-    { label: "Reports", to: ROUTES.app.reports, icon: Download },
+    { label: "Homework", to: ROUTES.app.homework, icon: ClipboardList },
     { label: "Bookmarks", to: ROUTES.app.bookmarks, icon: Bookmark },
     { label: "Notifications", to: ROUTES.app.notifications, icon: Bell },
     { label: "Profile", to: ROUTES.app.profile, icon: User },
@@ -39,13 +34,9 @@ const NAV_BY_ROLE: Record<UserRole, NavItem[]> = {
     { label: "Courses", to: ROUTES.app.courses, icon: BookOpen },
     { label: "Attendance", to: ROUTES.app.attendance, icon: CalendarCheck },
     { label: "Tests", to: ROUTES.app.tests, icon: ClipboardList },
-    { label: "Results", to: ROUTES.app.results, icon: Trophy },
     { label: "Homework", to: ROUTES.app.homework, icon: ClipboardList },
-    { label: "Study Material", to: ROUTES.app.materials, icon: FileText },
-    { label: "Live Classes", to: ROUTES.app.live, icon: Video },
     { label: "Messages", to: ROUTES.app.messages, icon: MessageSquare },
     { label: "Analytics", to: ROUTES.app.analytics, icon: BarChart3 },
-    { label: "Reports", to: ROUTES.app.reports, icon: Download },
     { label: "Profile", to: ROUTES.app.profile, icon: User },
     { label: "Settings", to: ROUTES.app.settings, icon: Settings },
   ],
@@ -53,10 +44,8 @@ const NAV_BY_ROLE: Record<UserRole, NavItem[]> = {
     { label: "Dashboard", to: ROUTES.app.dashboard, icon: LayoutDashboard },
     { label: "Attendance", to: ROUTES.app.attendance, icon: CalendarCheck },
     { label: "Tests", to: ROUTES.app.tests, icon: ClipboardList },
-    { label: "Results", to: ROUTES.app.results, icon: Trophy },
     { label: "Fees", to: ROUTES.app.fees, icon: CreditCard },
     { label: "Messages", to: ROUTES.app.messages, icon: MessageSquare },
-    { label: "Reports", to: ROUTES.app.reports, icon: Download },
     { label: "Notifications", to: ROUTES.app.notifications, icon: Bell },
     { label: "Profile", to: ROUTES.app.profile, icon: User },
     { label: "Settings", to: ROUTES.app.settings, icon: Settings },
