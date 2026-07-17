@@ -6,6 +6,15 @@ export const tokens = {
   radius: { sm: 4, md: 6, lg: 10, xl: 14 },
   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24 },
   chart: {
-    palette: ["#0a0a0a", "#525252", "#8b5cf6", "#22c55e", "#f59e0b", "#ef4444"],
+    palette: [
+      "#3b82f6", // primary blue
+      "#10b981", // success green
+      "#f59e0b", // warning amber
+      "#ef4444", // destructive red
+      "#8b5cf6", // accent violet
+      "#06b6d4", // info cyan
+    ],
+    primary: "#3b82f6",
+    primarySoft: "rgba(59, 130, 246, 0.15)",
   },
 } as const;

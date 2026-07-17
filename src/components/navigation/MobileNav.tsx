@@ -1,19 +1,70 @@
 import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, LayoutDashboard, Settings, GraduationCap } from "lucide-react";
+import { X, GraduationCap, LayoutDashboard, Settings, BookOpen, CalendarCheck, ClipboardList, CreditCard, Bell, Bookmark, Users, ChartBar as BarChart3, MessageSquare, User } from "lucide-react";
 
 import { useSidebar } from "@/context/SidebarContext";
+import { useAuth } from "@/context/AuthContext";
 import { ROUTES } from "@/constants/routes";
 import { APP } from "@/constants/app";
+import type { UserRole } from "@/types/user";
 import { cn } from "@/lib/utils";
 
-const NAV = [
-  { label: "Dashboard", to: ROUTES.app.dashboard, icon: LayoutDashboard },
-  { label: "Settings", to: ROUTES.app.settings, icon: Settings },
-];
+interface NavItem {
+  label: string;
+  to: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const NAV_BY_ROLE: Record<UserRole, NavItem[]> = {
+  student: [
+    { label: "Dashboard", to: ROUTES.app.dashboard, icon: LayoutDashboard },
+    { label: "Courses", to: ROUTES.app.courses, icon: BookOpen },
+    { label: "Attendance", to: ROUTES.app.attendance, icon: CalendarCheck },
+    { label: "Tests", to: ROUTES.app.tests, icon: ClipboardList },
+    { label: "Fees", to: ROUTES.app.fees, icon: CreditCard },
+    { label: "Homework", to: ROUTES.app.homework, icon: ClipboardList },
+    { label: "Bookmarks", to: ROUTES.app.bookmarks, icon: Bookmark },
+    { label: "Notifications", to: ROUTES.app.notifications, icon: Bell },
+    { label: "Profile", to: ROUTES.app.profile, icon: User },
+    { label: "Settings", to: ROUTES.app.settings, icon: Settings },
+  ],
+  teacher: [
+    { label: "Dashboard", to: ROUTES.app.dashboard, icon: LayoutDashboard },
+    { label: "Students", to: ROUTES.app.students, icon: Users },
+    { label: "Courses", to: ROUTES.app.courses, icon: BookOpen },
+    { label: "Attendance", to: ROUTES.app.attendance, icon: CalendarCheck },
+    { label: "Tests", to: ROUTES.app.tests, icon: ClipboardList },
+    { label: "Homework", to: ROUTES.app.homework, icon: ClipboardList },
+    { label: "Messages", to: ROUTES.app.messages, icon: MessageSquare },
+    { label: "Analytics", to: ROUTES.app.analytics, icon: BarChart3 },
+    { label: "Profile", to: ROUTES.app.profile, icon: User },
+    { label: "Settings", to: ROUTES.app.settings, icon: Settings },
+  ],
+  parent: [
+    { label: "Dashboard", to: ROUTES.app.dashboard, icon: LayoutDashboard },
+    { label: "Attendance", to: ROUTES.app.attendance, icon: CalendarCheck },
+    { label: "Tests", to: ROUTES.app.tests, icon: ClipboardList },
+    { label: "Fees", to: ROUTES.app.fees, icon: CreditCard },
+    { label: "Messages", to: ROUTES.app.messages, icon: MessageSquare },
+    { label: "Notifications", to: ROUTES.app.notifications, icon: Bell },
+    { label: "Profile", to: ROUTES.app.profile, icon: User },
+    { label: "Settings", to: ROUTES.app.settings, icon: Settings },
+  ],
+  admin: [
+    { label: "Dashboard", to: ROUTES.admin.dashboard, icon: LayoutDashboard },
+    { label: "Students", to: ROUTES.admin.students, icon: Users },
+    { label: "Teachers", to: ROUTES.admin.teachers, icon: GraduationCap },
+    { label: "Courses", to: ROUTES.admin.courses, icon: BookOpen },
+    { label: "Revenue", to: ROUTES.admin.revenue, icon: CreditCard },
+    { label: "Analytics", to: ROUTES.admin.analytics, icon: BarChart3 },
+    { label: "Settings", to: ROUTES.admin.settings, icon: Settings },
+  ],
+};
 
 export function MobileNav() {
   const { mobileOpen, setMobileOpen } = useSidebar();
+  const { role } = useAuth();
+  const nav = NAV_BY_ROLE[role ?? "student"];
 
   return (
     <AnimatePresence>
@@ -49,8 +100,8 @@ export function MobileNav() {
                 <X className="size-5" />
               </button>
             </div>
-            <nav className="flex-1 p-2 space-y-1">
-              {NAV.map((item) => (
+            <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
+              {nav.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
