@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/common/EmptyState";
 import { SkeletonList } from "@/components/feedback/Skeleton";
 

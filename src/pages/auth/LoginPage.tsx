@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Mail, Lock } from "lucide-react";
 
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/forms/FormField";
 import { signInWithEmail } from "@/services/firebase/auth.service";
 import { toast } from "@/components/feedback/toast";

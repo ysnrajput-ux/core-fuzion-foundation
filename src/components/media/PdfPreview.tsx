@@ -1,6 +1,6 @@
 import { FileText, ExternalLink } from "lucide-react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 interface Props {
   src: string;

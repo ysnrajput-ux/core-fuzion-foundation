@@ -4,7 +4,7 @@ import { LayoutDashboard, Settings, GraduationCap, PanelLeftClose, PanelLeft } f
 import { APP } from "@/constants/app";
 import { ROUTES } from "@/constants/routes";
 import { useSidebar } from "@/context/SidebarContext";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   label: string;

@@ -4,7 +4,7 @@ import { ArrowRight, GraduationCap } from "lucide-react";
 
 import { APP } from "@/constants/app";
 import { ROUTES } from "@/constants/routes";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 export function LandingPage() {
   return (

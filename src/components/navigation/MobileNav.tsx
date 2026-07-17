@@ -5,7 +5,7 @@ import { X, LayoutDashboard, Settings, GraduationCap } from "lucide-react";
 import { useSidebar } from "@/context/SidebarContext";
 import { ROUTES } from "@/constants/routes";
 import { APP } from "@/constants/app";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 const NAV = [
   { label: "Dashboard", to: ROUTES.app.dashboard, icon: LayoutDashboard },

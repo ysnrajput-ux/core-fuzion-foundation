@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Upload, File as FileIcon, X } from "lucide-react";
 
-import { Button } from "@/components/ui/Button";
-import { cn } from "@/utils/cn";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface Props {
   onFiles: (files: File[]) => void;

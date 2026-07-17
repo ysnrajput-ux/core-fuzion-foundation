@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/feedback/Skeleton";
 
 interface Props {

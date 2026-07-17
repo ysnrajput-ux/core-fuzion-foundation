@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/navigation/Sidebar";
 import { Topbar } from "@/components/navigation/Topbar";
 import { MobileNav } from "@/components/navigation/MobileNav";
 import { useSidebar } from "@/context/SidebarContext";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 export function AppLayout() {
   const { collapsed } = useSidebar();

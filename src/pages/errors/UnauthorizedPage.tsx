@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 
 export function UnauthorizedPage() {

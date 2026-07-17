@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Inbox } from "lucide-react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 interface Props {
   icon?: ReactNode;

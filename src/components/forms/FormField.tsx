@@ -1,8 +1,8 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { cn } from "@/utils/cn";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
