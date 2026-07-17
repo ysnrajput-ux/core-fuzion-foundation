@@ -35,8 +35,8 @@ export function MobileNav() {
           >
             <div className="h-16 flex items-center justify-between px-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                  <GraduationCap className="size-4" />
+                <div className="size-8 rounded-lg gradient-brand flex items-center justify-center shadow-glow">
+                  <GraduationCap className="size-4 text-white" />
                 </div>
                 <span className="text-sm font-semibold">{APP.shortName}</span>
               </div>
@@ -59,7 +59,7 @@ export function MobileNav() {
                     cn(
                       "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
                       "text-muted-foreground hover:text-foreground hover:bg-accent",
-                      isActive && "bg-accent text-foreground font-medium",
+                      isActive && "bg-accent text-primary font-medium",
                     )
                   }
                 >

@@ -3,8 +3,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { AppLayout } from "@/layouts/AppLayout";
+import { MarketingLayout } from "@/layouts/MarketingLayout";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { PublicRoute } from "@/routes/PublicRoute";
+
+import { HomePage } from "@/pages/marketing/HomePage";
+import { AboutPage } from "@/pages/marketing/AboutPage";
+import { CoursesPage } from "@/pages/marketing/CoursesPage";
+import { FacultyPage } from "@/pages/marketing/FacultyPage";
+import { AchievementsPage } from "@/pages/marketing/AchievementsPage";
+import { DemoPage } from "@/pages/marketing/DemoPage";
+import { ContactPage } from "@/pages/marketing/ContactPage";
 
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { RegisterPage } from "@/pages/auth/RegisterPage";
@@ -14,12 +23,19 @@ import { SettingsPage } from "@/pages/dashboard/SettingsPage";
 import { NotFoundPage } from "@/pages/errors/NotFoundPage";
 import { UnauthorizedPage } from "@/pages/errors/UnauthorizedPage";
 import { SessionExpiredPage } from "@/pages/errors/SessionExpiredPage";
-import { LandingPage } from "@/pages/LandingPage";
 
 export function AppRouter() {
   return (
     <Routes>
-      <Route path={ROUTES.root} element={<LandingPage />} />
+      <Route element={<MarketingLayout />}>
+        <Route path={ROUTES.root} element={<HomePage />} />
+        <Route path={ROUTES.marketing.about} element={<AboutPage />} />
+        <Route path={ROUTES.marketing.courses} element={<CoursesPage />} />
+        <Route path={ROUTES.marketing.faculty} element={<FacultyPage />} />
+        <Route path={ROUTES.marketing.achievements} element={<AchievementsPage />} />
+        <Route path={ROUTES.marketing.demo} element={<DemoPage />} />
+        <Route path={ROUTES.marketing.contact} element={<ContactPage />} />
+      </Route>
 
       <Route element={<PublicRoute />}>
         <Route element={<AuthLayout />}>

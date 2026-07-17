@@ -29,8 +29,8 @@ export function Sidebar() {
     >
       <div className="h-16 flex items-center px-4 border-b border-border/60">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-            <GraduationCap className="size-4" />
+          <div className="size-8 rounded-lg gradient-brand flex items-center justify-center shrink-0 shadow-glow">
+            <GraduationCap className="size-4 text-white" />
           </div>
           {!collapsed && (
             <span className="text-sm font-semibold tracking-tight truncate">
@@ -49,7 +49,7 @@ export function Sidebar() {
               cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
                 "text-muted-foreground hover:text-foreground hover:bg-accent",
-                isActive && "bg-accent text-foreground font-medium",
+                isActive && "bg-accent text-primary font-medium",
                 collapsed && "justify-center px-2",
               )
             }

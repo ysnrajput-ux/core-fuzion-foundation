@@ -4,6 +4,14 @@
  */
 export const ROUTES = {
   root: "/",
+  marketing: {
+    about: "/about",
+    courses: "/courses",
+    faculty: "/faculty",
+    achievements: "/achievements",
+    demo: "/demo",
+    contact: "/contact",
+  },
   auth: {
     login: "/auth/login",
     register: "/auth/register",

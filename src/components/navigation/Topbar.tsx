@@ -33,7 +33,7 @@ export function Topbar() {
       <div className="flex items-center gap-3">
         <Breadcrumbs className="hidden md:flex" />
         <div className="flex items-center gap-2">
-          <div className="size-8 rounded-full bg-primary/10 text-primary text-xs font-medium flex items-center justify-center">
+          <div className="size-8 rounded-full gradient-brand text-white text-xs font-medium flex items-center justify-center shadow-glow">
             {initials(user?.displayName ?? user?.email ?? "")}
           </div>
           <button
