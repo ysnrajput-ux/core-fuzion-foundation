@@ -1,2 +1,6 @@
-// Re-export for shadcn components which import `cn` from "@/lib/utils".
-export { cn } from "@/lib/utils";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
+}

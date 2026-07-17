@@ -1,6 +1,6 @@
 /**
  * Generic Firestore CRUD helpers. Feature modules build typed repositories
- * on top of these primitives — see `src/features/*/services/*`.
+ * on top of these primitives.
  */
 import {
   collection,
