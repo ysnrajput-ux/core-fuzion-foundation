@@ -22,6 +22,12 @@ export const ROUTES = {
     dashboard: "/app/dashboard",
     settings: "/app/settings",
   },
+  admin: {
+    root: "/admin",
+    dashboard: "/admin/dashboard",
+    users: "/admin/users",
+    settings: "/admin/settings",
+  },
   errors: {
     notFound: "/404",
     unauthorized: "/403",

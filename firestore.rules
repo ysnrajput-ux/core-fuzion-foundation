@@ -1,6 +1,7 @@
 rules_version = '2';
 
-// Baseline Firestore security rules. Tighten per-collection as modules land.
+// Fuzion Coaching Institute — Firestore security rules.
+// Role-based access control. Roles: student, teacher, parent, admin.
 service cloud.firestore {
   match /databases/{database}/documents {
     function isSignedIn() {
@@ -9,16 +10,122 @@ service cloud.firestore {
     function isSelf(uid) {
       return isSignedIn() && request.auth.uid == uid;
     }
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
     function hasRole(role) {
-      return isSignedIn()
-        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+      return isSignedIn() && userRole() == role;
+    }
+    function isAdmin() { return hasRole('admin'); }
+    function isTeacher() { return hasRole('teacher'); }
+    function isStudent() { return hasRole('student'); }
+    function isParent() { return hasRole('parent'); }
+
+    // ── Users ───────────────────────────────────────────────
+    match /users/{uid} {
+      allow read: if isSelf(uid) || isAdmin();
+      allow create: if isSelf(uid);
+      allow update: if isSelf(uid) || isAdmin();
+      allow delete: if isAdmin();
     }
 
-    match /users/{uid} {
-      allow read: if isSelf(uid) || hasRole('admin');
-      allow create: if isSelf(uid);
-      allow update: if isSelf(uid) || hasRole('admin');
-      allow delete: if hasRole('admin');
+    // ── Students ────────────────────────────────────────────
+    match /students/{id} {
+      allow read: if isAdmin() || isTeacher() || isParent() || isSelf(resource.data.uid);
+      allow create: if isAdmin() || isSelf(request.resource.data.uid);
+      allow update: if isAdmin() || isTeacher();
+      allow delete: if isAdmin();
+    }
+
+    // ── Teachers ────────────────────────────────────────────
+    match /teachers/{id} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || isSelf(resource.data.uid);
+      allow delete: if isAdmin();
+    }
+
+    // ── Parents ─────────────────────────────────────────────
+    match /parents/{id} {
+      allow read: if isAdmin() || isSelf(resource.data.uid) || isParent();
+      allow create: if isAdmin() || isSelf(request.resource.data.uid);
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Courses ─────────────────────────────────────────────
+    match /courses/{id} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin() || isTeacher();
+    }
+
+    // ── Enrollments ──────────────────────────────────────────
+    match /enrollments/{id} {
+      allow read: if isAdmin() || isTeacher() || isSelf(resource.data.studentUid);
+      allow create: if isAdmin() || isSelf(request.resource.data.studentUid);
+      allow update: if isAdmin() || isTeacher();
+      allow delete: if isAdmin();
+    }
+
+    // ── Attendance ───────────────────────────────────────────
+    match /attendance/{id} {
+      allow read: if isAdmin() || isTeacher() || isSelf(resource.data.studentUid);
+      allow create, update: if isAdmin() || isTeacher();
+      allow delete: if isAdmin();
+    }
+
+    // ── Assessments ──────────────────────────────────────────
+    match /assessments/{id} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin() || isTeacher();
+    }
+
+    // ── Results ──────────────────────────────────────────────
+    match /results/{id} {
+      allow read: if isAdmin() || isTeacher() || isSelf(resource.data.studentUid);
+      allow create, update: if isAdmin() || isTeacher();
+      allow delete: if isAdmin();
+    }
+
+    // ── Fees ─────────────────────────────────────────────────
+    match /fees/{id} {
+      allow read: if isAdmin() || isSelf(resource.data.studentUid);
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Payments ─────────────────────────────────────────────
+    match /payments/{id} {
+      allow read: if isAdmin() || isSelf(resource.data.studentUid);
+      allow create: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // ── Notifications ───────────────────────────────────────
+    match /notifications/{id} {
+      allow read: if isAdmin() || isSelf(resource.data.targetUid);
+      allow create: if isAdmin() || isTeacher();
+      allow update: if isSelf(resource.data.targetUid);
+      allow delete: if isAdmin();
+    }
+
+    // ── Events ───────────────────────────────────────────────
+    match /events/{id} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Materials ────────────────────────────────────────────
+    match /materials/{id} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isAdmin() || isTeacher();
+    }
+
+    // ── Messages ─────────────────────────────────────────────
+    match /messages/{id} {
+      allow read: if isSignedIn() && (isSelf(resource.data.senderUid) || isSelf(resource.data.receiverUid));
+      allow create: if isSignedIn() && isSelf(request.resource.data.senderUid);
+      allow update: if isSelf(resource.data.receiverUid);
+      allow delete: if isAdmin() || isSelf(resource.data.senderUid);
     }
 
     // Default deny — every new collection MUST add its own explicit rules.

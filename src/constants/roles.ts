@@ -9,6 +9,9 @@ export const ROLES: Record<Uppercase<UserRole>, UserRole> = {
 
 export const ALL_ROLES: UserRole[] = ["student", "teacher", "parent", "admin"];
 
+/** Roles a new user can self-select during registration. Admin is excluded. */
+export const SELF_REG_ROLES: UserRole[] = ["student", "teacher", "parent"];
+
 export const ROLE_LABELS: Record<UserRole, string> = {
   student: "Student",
   teacher: "Teacher",
@@ -16,10 +19,10 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   admin: "Administrator",
 };
 
-/** Default landing route per role. Modules can extend this map. */
+/** Default landing route per role after authentication. */
 export const ROLE_HOME: Record<UserRole, string> = {
   student: "/app/dashboard",
   teacher: "/app/dashboard",
   parent: "/app/dashboard",
-  admin: "/app/dashboard",
+  admin: "/admin/dashboard",
 };

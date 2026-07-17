@@ -6,9 +6,12 @@ import { Mail, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/forms/FormField";
 import { signInWithEmail } from "@/services/firebase/auth.service";
+import { getDocument } from "@/services/firestore/firestore.service";
 import { toast } from "@/components/feedback/toast";
 import { ROUTES } from "@/constants/routes";
+import { ROLE_HOME } from "@/constants/roles";
 import { isFirebaseConfigured } from "@/services/firebase/firebase";
+import type { AppUser } from "@/types/user";
 
 interface FormValues {
   email: string;
@@ -24,7 +27,7 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from ?? ROUTES.app.dashboard;
+  const from = (location.state as { from?: string } | null)?.from;
 
   const onSubmit = async (values: FormValues) => {
     if (!isFirebaseConfigured) {
@@ -33,9 +36,16 @@ export function LoginPage() {
     }
     setLoading(true);
     try {
-      await signInWithEmail(values.email, values.password);
+      const user = await signInWithEmail(values.email, values.password);
+      let dest = from ?? ROUTES.app.dashboard;
+      try {
+        const profile = await getDocument<AppUser>("users", user.uid);
+        if (profile?.role) dest = from ?? ROLE_HOME[profile.role];
+      } catch {
+        // fall back to default dashboard
+      }
       toast.success("Welcome back");
-      navigate(from, { replace: true });
+      navigate(dest, { replace: true });
     } catch (err) {
       toast.error(err);
     } finally {

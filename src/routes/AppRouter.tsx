@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { AppLayout } from "@/layouts/AppLayout";
+import { AdminLayout } from "@/layouts/AdminLayout";
 import { MarketingLayout } from "@/layouts/MarketingLayout";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { PublicRoute } from "@/routes/PublicRoute";
@@ -20,6 +21,9 @@ import { RegisterPage } from "@/pages/auth/RegisterPage";
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
 import { DashboardPage } from "@/pages/dashboard/DashboardPage";
 import { SettingsPage } from "@/pages/dashboard/SettingsPage";
+import { AdminDashboardPage } from "@/pages/admin/AdminDashboardPage";
+import { AdminUsersPage } from "@/pages/admin/AdminUsersPage";
+import { AdminSettingsPage } from "@/pages/admin/AdminSettingsPage";
 import { NotFoundPage } from "@/pages/errors/NotFoundPage";
 import { UnauthorizedPage } from "@/pages/errors/UnauthorizedPage";
 import { SessionExpiredPage } from "@/pages/errors/SessionExpiredPage";
@@ -27,6 +31,7 @@ import { SessionExpiredPage } from "@/pages/errors/SessionExpiredPage";
 export function AppRouter() {
   return (
     <Routes>
+      {/* Marketing */}
       <Route element={<MarketingLayout />}>
         <Route path={ROUTES.root} element={<HomePage />} />
         <Route path={ROUTES.marketing.about} element={<AboutPage />} />
@@ -37,6 +42,7 @@ export function AppRouter() {
         <Route path={ROUTES.marketing.contact} element={<ContactPage />} />
       </Route>
 
+      {/* Auth (public-only) */}
       <Route element={<PublicRoute />}>
         <Route element={<AuthLayout />}>
           <Route path={ROUTES.auth.login} element={<LoginPage />} />
@@ -45,6 +51,7 @@ export function AppRouter() {
         </Route>
       </Route>
 
+      {/* App (authenticated, any role) */}
       <Route element={<ProtectedRoute />}>
         <Route path={ROUTES.app.root} element={<AppLayout />}>
           <Route index element={<Navigate to={ROUTES.app.dashboard} replace />} />
@@ -53,6 +60,17 @@ export function AppRouter() {
         </Route>
       </Route>
 
+      {/* Admin (admin-only, /admin) */}
+      <Route element={<ProtectedRoute roles={["admin"]} />}>
+        <Route path={ROUTES.admin.root} element={<AdminLayout />}>
+          <Route index element={<Navigate to={ROUTES.admin.dashboard} replace />} />
+          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
+        </Route>
+      </Route>
+
+      {/* Errors */}
       <Route path={ROUTES.errors.unauthorized} element={<UnauthorizedPage />} />
       <Route path={ROUTES.errors.sessionExpired} element={<SessionExpiredPage />} />
       <Route path={ROUTES.errors.notFound} element={<NotFoundPage />} />
