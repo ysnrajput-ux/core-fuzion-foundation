@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// Baseline Firestore security rules. Tighten per-collection as modules land.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isSelf(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function hasRole(role) {
+      return isSignedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+
+    match /users/{uid} {
+      allow read: if isSelf(uid) || hasRole('admin');
+      allow create: if isSelf(uid);
+      allow update: if isSelf(uid) || hasRole('admin');
+      allow delete: if hasRole('admin');
+    }
+
+    // Default deny — every new collection MUST add its own explicit rules.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
